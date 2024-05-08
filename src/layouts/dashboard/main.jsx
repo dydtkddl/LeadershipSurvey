@@ -4,8 +4,8 @@ import Box from '@mui/material/Box';
 
 import { useResponsive } from 'src/hooks/use-responsive';
 
-import { NAV } from './config-layout';
-// import { NAV, HEADER } from './config-layout';
+// import { NAV } from './config-layout';
+import { NAV, HEADER } from './config-layout';
 
 // ----------------------------------------------------------------------
 
@@ -26,9 +26,15 @@ export default function Main({ children, sx, ...other }) {
         py: `${ SPACING}px`,
         ...(lgUp && {
           px: 2,
-          // py: `${HEADER.H_DESKTOP + SPACING}px`,
-          py: `${SPACING * 3}px`,
+          py: `${HEADER.H_DESKTOP + SPACING}px`,
+          // py: `${SPACING * 3}px`,
           width: `calc(100% - ${NAV.WIDTH}px)`,
+        }),
+        ...(!lgUp && {
+          px: 2,
+          py: `${HEADER.H_DESKTOP + SPACING}px`,
+          // py: `${SPACING * 3}px`,
+          // width: `calc(100% - ${NAV.WIDTH}px)`,
         }),
         ...sx,
       }}

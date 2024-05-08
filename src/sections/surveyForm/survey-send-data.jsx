@@ -45,7 +45,7 @@ export default function SurveySendData({
     const token = localStorage.getItem("token")
     const fetchData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/save_user_answer/", {
+        const response = await fetch("https://leadershipsurvey.pythonanywhere.com/save_user_answer/", {
           method: "POST",
           headers: {
             'Authorization': `Bearer ${token}`,

@@ -1,13 +1,15 @@
-import { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 // import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
+import Modal from '@mui/material/Modal';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import { alpha } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import ListItemButton from '@mui/material/ListItemButton';
 
@@ -25,17 +27,30 @@ import Scrollbar from 'src/components/scrollbar';
 import { NAV } from './config-layout';
 import navConfig from './config-navigation';
 
-
 // ----------------------------------------------------------------------
-
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 export default function Nav({ openNav, onCloseNav }) {
   const pathname = usePathname();
+  const [feedbacktext , setFeedbacktext] = useState("")
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const upLg = useResponsive('up', 'lg');
   const signOut =()=>{
     localStorage.removeItem('token');
     localStorage.removeItem('name');
-    window.location.href = "/login"
+    window.location.href = "/signin"
   }
   useEffect(() => {
     if (openNav) {
@@ -43,7 +58,31 @@ export default function Nav({ openNav, onCloseNav }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
+  const sendFeedback = async (e) => {
+    e.preventDefault();
+  const token = localStorage.getItem("token")
 
+    try {
+      const response = await fetch("https://leadershipsurvey.pythonanywhere.com/send_feedback/", {
+        method: "POST",
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({"feedback":feedbacktext})
+      });
+  
+      const data = await response.json();
+     if (data.message === "success") {
+        window.alert("success");
+        setOpen(false)
+      } else {
+        console.log("서버오류 : ", response.status);
+      }
+    } catch (error) {
+      console.error('오류:', error);
+    }
+  }
   const renderAccount = (
     <Box
       sx={{
@@ -96,8 +135,7 @@ export default function Nav({ openNav, onCloseNav }) {
         </Box>
 
         <Button
-          href="/"
-          target="_blank"
+          onClick={handleOpen}
           variant="contained"
           color="inherit"
         >
@@ -161,7 +199,25 @@ export default function Nav({ openNav, onCloseNav }) {
           {renderContent}
         </Drawer>
       )}
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            FeedBack Form
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }} gutterBottom>  
+          We would appreciate it if you could leave your comments about our site
+          </Typography>
+      <TextField rows     = {14} multiline placeholder="Comments" fullWidth value = {feedbacktext} onChange = {(e) =>(setFeedbacktext(e.target.value))}/>
+          <Button variant = "contained" onClick = {sendFeedback}> Submit Feedback</Button>
+        </Box>
+      </Modal>
     </Box>
+    
   );
 }
 
@@ -204,6 +260,7 @@ function NavItem({ item }) {
 
       <Box component="span">{item.title} </Box>
     </ListItemButton>
+
   );
 }
 

@@ -228,6 +228,16 @@ export const result_group_labels = {
     "Goal15": ["SDT15"],
     "Goal16": ["SDT16"],
     "Goal17": ["SDT17"],
+  },
+  "PersonalInformationSurvey": {
+    "Nationality": ["personal_information1"],
+    "Gender": ["personal_information2"],
+    "Age": ["personal_information3"],
+    "Occupation": ["personal_information4"],
+    "highest level of education": ["personal_information5"],
+    "School Name": ["personal_information6"],
+    "Self-Check Leadership score": ["personal_information7"],
+   
   }
 }
 

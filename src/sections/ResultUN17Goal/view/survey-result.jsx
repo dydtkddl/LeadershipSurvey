@@ -37,7 +37,7 @@ export default function ResultUN17Goal({ surveyname }) {
   
     const fetchData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/result_data_render/", {
+        const response = await fetch("https://leadershipsurvey.pythonanywhere.com/result_data_render/", {
           method: "POST",
           headers: {
             'Authorization': `Bearer ${token}`,

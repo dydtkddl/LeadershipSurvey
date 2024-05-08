@@ -8,7 +8,7 @@ export default function SignupPage() {
   return (
     <>
       <Helmet>
-        <title> SignUp | Minimal UI </title>
+        <title> SignUp </title>
       </Helmet>
 
       <SignupView />

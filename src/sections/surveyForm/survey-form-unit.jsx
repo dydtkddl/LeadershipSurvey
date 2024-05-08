@@ -187,9 +187,9 @@ export default function AppTrafficBySite({
 
 
       <Divider sx={{ borderStyle: 'dashed' ,my : 1}} />
-      <Typography fontSize = {18}color="#ff333f" position='absolute' left="10%">{currentQ.question_notice[requestLanguage]}</Typography>
+      <Typography fontSize = {13}color="#ff333f" position='absolute' left="10%">{currentQ.question_notice[requestLanguage]}</Typography>
       <Box sx={{
-        backgroundColor: questionBoxColor, pt: 2, mt: 7, mx: "10%", px: 4, mb : 10,
+        backgroundColor: questionBoxColor, pt: 2, mt: 7, mx: "10%", px: 4, mb : 10, pb  : 2,
         border: "3px solid #e9ecec",
         borderRadius: 2,
         display: "flex",
@@ -201,14 +201,14 @@ export default function AppTrafficBySite({
         <Typography id="modal-modal-title" textAlign="center" variant="h4" component="h2">
         👉  {questionobjects[Object.keys(questionobjects)[currentQuestion]].question_title[requestLanguage]}
         </Typography>
-        <Typography id="modal-modal-description" textAlign="center" variant = "h3" sx={{ mt: 2 }}>
+        <Stack direction="column">
+        <Typography id="modal-modal-description" textAlign="center" variant = "h4" sx={{ mt: 2, mb : 5 }}>
           {questionobjects[Object.keys(questionobjects)[currentQuestion]].question_basic[requestLanguage]}
         </Typography>
-      <p/>
-      <p/>
-        {/* // <Typography id="modal-modal-description" textAlign="center"sx={{ mt: 2 }}>
-        //   {questionobjects[Object.keys(questionobjects)[currentQuestion]].question_details[requestLanguage]}
-        // </Typography> */}
+         <Typography id="modal-modal-description" textAlign="center">
+           {questionobjects[Object.keys(questionobjects)[currentQuestion]].question_details[requestLanguage]}
+         </Typography>
+         </Stack>
         {isStringInput ? <Box
            sx={{
             maxWidth : "900px",
@@ -216,11 +216,12 @@ export default function AppTrafficBySite({
             // minWidth : "500px",
             p: 3,
             pt: 4,
-            position :"absolute",
+            // position :"absolute",
             display: 'grid',
-            top: "80%",
-            left: "50%",
-            transform: `translate(-50%, -50%)`
+            ml: "50%",
+            transform: "translate(-50%, 0%)",
+            // left: "50%",
+            // transform: `translate(-50%, -50%)`
           }}
         >
           <Grid container>
@@ -242,16 +243,18 @@ export default function AppTrafficBySite({
               width: "100%",
               // minWidth : "500px",
               p: 3,
-              pt: 4,
+              // pt: 4,
               gap: 2.5,
-              position :"absolute",
+              // position :"absolute",
               display: 'grid',
               gridTemplateColumns: 'repeat(5, 1fr)',
               justifyContent: 'center', // 중앙 정렬 추가,
-              margin: 'auto', // 가운데 정렬을 위해 추가
-              top: "80%",
-              left: "50%",
-              transform: `translate(-50%, -50%)`
+              ml: "50%",
+            transform: "translate(-50%, 0%)",
+              // margin: 'auto', // 가운데 정렬을 위해 추가
+              // top: "80%",
+              // left: "50%",
+              // transform: `translate(-50%, -50%)`
             }}
           >
 
@@ -310,6 +313,8 @@ export default function AppTrafficBySite({
         </Box>
       </Box>
         <Stack direction='column' width = "100%">
+        {surveyname === "JMLeadershipEvaluationSurvey" ? <>.</> : <>
+        
         {chunkedItems.map((chunk, index) => (
           <Stack key={index} direction="row" spacing={1} sx={{ mx: "10%", pb: 0, marginBottom: 1, justifyContent: 'center' }} display="flex" >
             {chunk.map((item, idx) => (
@@ -317,7 +322,10 @@ export default function AppTrafficBySite({
             ))}
           </Stack>
 
-        ))}</Stack>
+        ))}
+        
+        </>}
+        </Stack>
           
 
 

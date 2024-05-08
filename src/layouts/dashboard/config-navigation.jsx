@@ -3,24 +3,24 @@ import SvgColor from 'src/components/svg-color';
 // ----------------------------------------------------------------------
 
 const icon = (name) => (
-  <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />
+  <SvgColor src={`/assets/icons/navbar/${name}`} sx={{ width: 1, height: 1 }} />
 );
 
 const navConfig = [
   {
     title: 'dashboard',
     path: '/',
-    icon: icon('ic_analytics'),
+    icon: icon('ic_analytics.svg'),
   },
-  {
-    title: 'Surveys',
-    path: '/Surveys',
-    icon: icon('ic_user'),
-  },
+  // {
+  //   title: 'Surveys',
+  //   path: '/Surveys',
+  //   icon: icon('ic_user'),
+  // },
   {
     title: 'Results',
     path: '/Results',
-    icon: icon('ic_cart'),
+    icon: icon('ic_result.png'),
   },
   
  

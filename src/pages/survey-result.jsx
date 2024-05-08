@@ -33,8 +33,9 @@ export default function SurveyResultPage({surveyname}) {
   return (
     <>
       <Helmet>
-        <title> surveyResult | Minimal UI </title>
+        <title> surveyResult  </title>
       </Helmet>
+      
       {renderResult}
     </>
   );

@@ -9,7 +9,7 @@ export default function SurveyResultListPage() {
   return (
     <>
       <Helmet>
-        <title> SurveyResultList | Minimal UI </title>
+        <title> SurveyResultList </title>
       </Helmet>
 
       <SurveyResultList/>

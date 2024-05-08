@@ -36,7 +36,7 @@ export default function SurveyForm({ surveyname }) {
 
     const fetchData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/send_to_survey_form/", {
+        const response = await fetch("https://leadershipsurvey.pythonanywhere.com/send_to_survey_form/", {
           method: "POST",
           headers: {
             'Authorization': `Bearer ${token}`,

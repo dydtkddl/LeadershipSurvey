@@ -8,12 +8,16 @@ export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
 export const UserPage = lazy(() => import('src/pages/user'));
 export const LoginPage = lazy(() => import('src/pages/login'));
+export const AdminLoginPage = lazy(() => import('src/pages/admin-login'));
 export const SignupPage = lazy(() => import('src/pages/signup'));
+export const AdminSignupPage = lazy(() => import('src/pages/admin-signup'));
+export const AdminPage = lazy(() => import('src/pages/admin-page'));
 export const ProductsPage = lazy(() => import('src/pages/products'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
 export const SurveyPage = lazy(() => import('src/pages/survey-form'));
 
 export const ResultPage = lazy(() => import('src/pages/survey-result'));
+export const AdminResultPage = lazy(() => import('src/pages/admin-survey-result'));
 export const ResultListPage = lazy(() => import('src/pages/survey-result-list'));
 
 export const HomePage = lazy(() => import('src/pages/app_'));
@@ -21,8 +25,22 @@ export const HomePage = lazy(() => import('src/pages/app_'));
 
 export default function Router() {
   const isLoggedIn = localStorage.getItem("token") || false
+  const isLoggedInadmin = localStorage.getItem("admin") || false
   console.log("로그인 여부", isLoggedIn)
-  const allowpath  = ['/login']
+  const adminonlyallowpath = ["/adminpage",
+  "/adminpage/LeadershipSurveyResult"  ,
+  "/adminpage/InclusiveLeadershipSurveyResult"  ,
+  "/adminpage/JMLeadershipEvaluationSurveyResult"  ,
+  "/adminpage/UN17GoalResult"  ,
+  "/adminpage/",
+  "/adminpage/LeadershipSurveyResult/"  ,
+  "/adminpage/InclusiveLeadershipSurveyResult/"  ,
+  "/adminpage/JMLeadershipEvaluationSurveyResult/"  ,
+  "/adminpage/UN17GoalResult/"  ,
+  "/signin",
+  "/signin/",
+  ]
+  const allowpath  = ['/signin','/adminsignin']
   const disallowgeneral = ['/home', '/about']
   const disallowresult  = ["/LeadershipSurveyResult"  ,
                           "/InclusiveLeadershipSurveyResult"  ,
@@ -39,13 +57,30 @@ export default function Router() {
                           ,"/JMLeadershipEvaluationSurvey"
                           ,"/LeadershipSurvey"]
   const disallowedPaths = disallowgeneral + disallowresult + disallowsurvey
-  if (isLoggedIn && allowpath.includes(window.location.pathname) ) {
-      console.log(1)
-      window.location.href = '/';
+  if (isLoggedIn){
+    if ((isLoggedIn === isLoggedInadmin)){
+      if (!adminonlyallowpath.includes(window.location.pathname)){
+        window.location.href = '/adminpage';
+      }
+    }else{
+      if (allowpath.includes(window.location.pathname)){
+        window.location.href = '/';
+      }if (adminonlyallowpath.includes(window.location.pathname)){
+        window.location.href = '/';
+      }
     }
-  if (!isLoggedIn && disallowedPaths.includes(window.location.pathname)) {
-    window.location.href= '/login';
   }
+  if (!isLoggedIn){
+    if (disallowedPaths.includes(window.location.pathname)){
+    window.location.href= '/signin';
+    }
+    if (adminonlyallowpath.includes(window.location.pathname)){
+      window.location.href= '/signin';
+    }
+  }
+
+  
+ 
   const routes = useRoutes([
     {
       element: (
@@ -60,9 +95,9 @@ export default function Router() {
       children: [
         { path: '', element: <HomePage /> , index: true },
         {path : "reference", element: <IndexPage /> },
-        { path: 'user', element: <UserPage /> },
-        { path: 'products', element: <ProductsPage /> },
-        { path: 'blog', element: <BlogPage /> },
+        // { path: 'user', element: <UserPage /> },
+        // { path: 'products', element: <ProductsPage /> },
+        // { path: 'blog', element: <BlogPage /> },
         // 설문조사 라우트
         { path: "PersonalInformationSurvey", element: <SurveyPage surveyname = "PersonalInformationSurvey" /> },
         { path: "UN17Goal", element: <SurveyPage surveyname = "UN17Goal" /> },
@@ -80,13 +115,30 @@ export default function Router() {
       ],
     },
     {
-      path: 'login',
+      path: 'signin',
       element: <LoginPage />,
     },
+    {
+      path: 'adminsignin',
+      element: <AdminLoginPage />,
+    },
+    {
+      path: 'adminpage',
+      element: <AdminPage />,
+    },
+    // { path: "adminpage/PersonalInformationSurveyResult", element: <ResultPage surveyname = "PersonalInformationSurvey" /> },
+    { path: "adminpage/JMLeadershipEvaluationSurveyResult", element: <AdminResultPage surveyname = "JMLeadershipEvaluationSurvey" /> },
+    { path: "adminpage/InclusiveLeadershipSurveyResult", element: <AdminResultPage surveyname = "InclusiveLeadershipSurvey" /> },
+    { path: "adminpage/LeadershipSurveyResult", element: <AdminResultPage surveyname = "LeadershipSurvey" /> },
+    { path: "adminpage/UN17GoalResult", element: <AdminResultPage surveyname = "UN17Goal" /> },
     {
       path: 'signup',
       element: <SignupPage />,
     },
+    // {
+    //   path: 'adminsignup',
+    //   element: <AdminSignupPage />,
+    // },
    
     {
       path: '404',

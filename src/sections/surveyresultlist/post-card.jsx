@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import Avatar from '@mui/material/Avatar';
+// import Avatar from '@mui/material/Avatar';
 import { alpha } from '@mui/material/styles';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
@@ -27,7 +27,8 @@ export default function PostCard({ data, index }) {
   const lin = "/Results/".concat(surveyname).concat("Result")
   console.log(lin)
   const renderAvatar = (
-    <Avatar
+    <Box
+      component="img"
       // alt={author.name}
       // src={author.avatarUrl}
       sx={{
@@ -45,6 +46,7 @@ export default function PostCard({ data, index }) {
           height: 40,
         }),
       }}
+      src = "/assets/icons/ic_check.png"
     />
   );
 

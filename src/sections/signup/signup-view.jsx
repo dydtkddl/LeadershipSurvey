@@ -5,8 +5,8 @@ import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
+// import Button from '@mui/material/Button';
+// import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -113,7 +113,7 @@ const onSubmit = async (e) => {
 
   try {
     console.log(updatedUserData)
-    const response = await fetch("http://127.0.0.1:8000/signup/", {
+    const response = await fetch("https://leadershipsurvey.pythonanywhere.com/signup_backend/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -127,7 +127,7 @@ const onSubmit = async (e) => {
       window.alert("The same ID exists");
     } else if (data.message === "success") {
       window.alert("success");
-      window.location.href = "/login";
+      window.location.href = "/signin";
     } else {
       console.log("서버오류 : ", response.status);
     }
@@ -262,7 +262,7 @@ const onSubmit = async (e) => {
           }}
         > 
           <Stack direction="row" spacing={2} alignItems="center" position = "relative">
-            <Link href = "login">
+            <Link href = "signin">
             <Iconify  position = "absolute" sx = {{top : 9}}
               icon="ic:twotone-arrow-back-ios"
             /></Link>
@@ -272,7 +272,7 @@ const onSubmit = async (e) => {
 
           
 
-          <Stack direction="row" spacing={2}>
+          {/* <Stack direction="row" spacing={2}>
             <Button
               fullWidth
               size="large"
@@ -308,7 +308,7 @@ const onSubmit = async (e) => {
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               OR
             </Typography>
-          </Divider>
+          </Divider> */}
           <form>
           {renderForm}
           </form>

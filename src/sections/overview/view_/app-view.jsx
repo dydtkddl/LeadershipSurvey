@@ -21,7 +21,7 @@ export default function AppView() {
 
     const fetchData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/send_to_home/", {
+        const response = await fetch("https://leadershipsurvey.pythonanywhere.com/send_to_home/", {
           method: "POST",
           headers: {
             'Authorization': `Bearer ${token}`,

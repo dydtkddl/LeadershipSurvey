@@ -38,7 +38,7 @@ export default function ResultJMLeadershipSurvey({ surveyname }) {
   
     const fetchData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/result_data_render/", {
+        const response = await fetch("https://leadershipsurvey.pythonanywhere.com/result_data_render/", {
           method: "POST",
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -57,6 +57,27 @@ export default function ResultJMLeadershipSurvey({ surveyname }) {
       }
     };
     fetchData();
+    // const fetchData2 = async () => {
+    //   try {
+    //     const response = await fetch("https://127.0.0.1:8000/result_data_render2/", {
+    //       method: "POST",
+    //       headers: {
+    //         'Authorization': `Bearer ${token}`,
+    //         "Content-Type": "application/json"
+    //       },
+    //       body: JSON.stringify({ surveyname_: surveyname, group_info_ : group_info[JMupperLayer] })
+    //     });
+    //     if (response.ok) {
+    //       const data = await response.json();
+    //       console.log(data)
+    //       setResponse(data.senddata)
+    //       setIsloading(false)
+    //     }
+    //   } catch (error) {
+    //     console.error("Error fetching data:", error);
+    //   }
+    // };
+    // fetchData2();
   }, [token, surveyname,group_info,currentShow]);
   console.log(responde)
   console.log(isloading)
@@ -64,6 +85,7 @@ export default function ResultJMLeadershipSurvey({ surveyname }) {
   console.log(JMupperLayer[currentShow])
   console.log(group_info[JMupperLayer[currentShow]])
   const group_info_keys = Object.keys(group_info[JMupperLayer[currentShow]])
+  console.log(typeof(group_info_keys))
   return (<Container maxWidth="xl">
   <Typography variant="h4" sx={{ mb: 5 }}>
     {surveyname} Result
@@ -120,7 +142,7 @@ export default function ResultJMLeadershipSurvey({ surveyname }) {
         title="JM Survey"
         subheader="."
         chart={{
-          labels: group_info_keys,
+          labels: group_info_keys.map((key) => (key.split(" "))),
           series: [
             {
               name: 'You',

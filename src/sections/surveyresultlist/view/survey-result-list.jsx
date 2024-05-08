@@ -6,6 +6,7 @@
 
 import { useState, useEffect } from 'react';
 
+import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -32,7 +33,7 @@ export default function SurveyResultList() {
       const fetchData = async () => {
         try {
           const token = localStorage.getItem("token");
-          const response = await fetch("http://127.0.0.1:8000/send_completed_survey_list/", {
+          const response = await fetch("https://leadershipsurvey.pythonanywhere.com/send_completed_survey_list/", {
             method: "POST",
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -42,6 +43,7 @@ export default function SurveyResultList() {
           if (response.ok) {
             const data = await response.json();
             setUserData(data);
+            console.log(data)
           setIsloading(false)
 
           }
@@ -60,7 +62,7 @@ export default function SurveyResultList() {
       </Grid>
     )
   }
-  console.log(userData)
+  console.log(userData.data.length)
   return ( <Container>
     <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
       <Typography variant="h4">Survey List</Typography>
@@ -81,13 +83,30 @@ export default function SurveyResultList() {
       />
     </Stack> */}
 
-    <Grid container spacing={3}>
-      {userData.data.map((data, index) => (
-        <PostCard 
-        key={index} data={data} index={index} />
-      ))}
-    </Grid>
-  </Container>)
+    
+      {isloading ? <CircularProgress/> : <>{userData.data.length !== 0 ? <
+            Grid container spacing={3}> {userData.data.map((data, index) => (
+            <PostCard 
+            key={index} data={data} index={index} />
+          ))}
+        </Grid> :  
+        <Grid container spacing={3} justifyContent="center"> 
+        <Grid item>
+          <Typography variant = "h3"gutterBottom sx = {{pb : 5, pt : 10}}>
+            No Results 
+          </Typography>
+          <Typography variant = "subtitle1" gutterBottom>
+          No survey results available.
+          </Typography>
+          <Link href = "/">
+          <Typography variant = "body1" >
+          Please conduct the survey first!
+          </Typography>
+          </Link>
+          </Grid>
+        </Grid>} </>}
+
+      </Container>)
 
 
 }

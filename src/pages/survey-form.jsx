@@ -9,7 +9,7 @@ export default function SurveyFormPage({surveyname}) {
   return (
     <>
       <Helmet>
-        <title> Take Survey | Minimal UI </title>
+        <title> Take Survey </title>
       </Helmet>
 
       <SurveyForm surveyname = {surveyname} />
